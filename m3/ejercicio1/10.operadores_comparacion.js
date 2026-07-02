@@ -6,8 +6,9 @@
 // DISTINTO DE: !=
 // ESTRICTAMENTE IGUAL: ===
 
+// USUARIO PUEDE TRABAJAR
 
-let edad = 30;
+let edad = 15;
 let permiso = false;
 
 if(edad >= 18){

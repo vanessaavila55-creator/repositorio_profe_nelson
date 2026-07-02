@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="operaciones">
+        <button data-operacion="suma">+</button>
+        <button data-operacion="resta">-</button>
+        <button data-operacion="division">/</button>
+        <button data-operacion="multiplicacion">*</button>
+    </div>
+
+
+    <script>
+        const operaciones = document.getElementById("operaciones");
+
+        operaciones.addEventListener("click", (event) => {
+            const elemento = event.target;
+
+            if (elemento.tagName == "BUTTON") {
+
+                let operacion = elemento.dataset.operacion;
+                console.log(operacion);
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

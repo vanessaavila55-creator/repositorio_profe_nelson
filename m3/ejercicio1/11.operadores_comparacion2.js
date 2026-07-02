@@ -7,7 +7,7 @@
 //MAYOR O IGUAL A 40 Y MENOR QUE 50: 50 % DE BECA
 //MENOR QUE 40: 100 % DE BECA
 
-let puntajeRSH =  10;
+let puntajeRSH = 40;
 
 if( puntajeRSH >= 80){
     console.log("Usted no tiene descuento por beca.");
