@@ -1,0 +1,34 @@
+<section>
+    <button id="btn-ocultar">Ocultar</button>
+    <button id="btn-mostrar">Mostrar</button>
+
+    <div>
+        <p id="parrafo-target">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, soluta quasi harum
+            incidunt labore enim
+            voluptas accusamus atque non corporis eligendi sint, aut eos inventore dolorem id nihil debitis optio.</p>
+    </div>
+    <p>Otro elemento....</p>
+</section>
+
+
+<script>
+
+    const parrafoTarget = document.getElementById("parrafo-target");
+
+    //EVENTO BOTÓN OCULTAR
+    const btnOcultar = document.getElementById("btn-ocultar");
+
+    btnOcultar.addEventListener("click", (event) => {
+        parrafoTarget.style.visibility = "none";
+    });
+
+
+    //EVENTO BOTÓN MOSTRAR
+    const btnMostrar = document.getElementById("btn-mostrar");
+
+    btnMostrar.addEventListener("click", (event) => {
+        parrafoTarget.style.display = "block";
+    });
+
+
+</script>

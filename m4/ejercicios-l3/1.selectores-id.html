@@ -1,0 +1,19 @@
+<section>
+    <p>Elemento 1</p>
+    <p>Elemento 2</p>
+    <p id="unico">Elemento 3</p>
+    <p>Elemento 4</p>
+</section>
+
+<script>
+    const unico = document.getElementById("unico");
+
+    //MODIFICAR ESTILOS DEL ELEMENTOS
+    unico.style.color = "red";
+    unico.style.fontSize = "25px";
+    unico.style.textDecoration = "underline";
+
+    //MODIFICAR EL CONTENIDO DE TEXTO
+    unico.textContent +=  "!!!";
+
+</script>

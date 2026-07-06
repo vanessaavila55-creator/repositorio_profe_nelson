@@ -1,0 +1,182 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+
+<main class="container">
+    <div class="row py-5">
+        <div class="col">
+            <input type="text" placeholder="Agrega una nueva tarea" id="input-tarea" class="form-control">
+        </div>
+        <div class="col">
+            <button id="btn-agregar-tarea" class="btn btn-primary">Agregar</button>
+        </div>
+    </div>
+
+    <div>
+        <h2>Lista de tareas</h2>
+        <ul id="lista-tareas-dom">
+
+        </ul>
+    </div>
+</main>
+
+
+
+<script>
+
+    //ESTÁ SERÁ NUESTRA BASE DE DATOS (MEMORIA VOLATIL) PARA GUARDAR LAS TAREAS
+    const listaTareas = [];
+
+    //PERMITE GENERAR UN IDENTIFICADO ÚNICO UNIVERSAL
+    const generarId = () => {
+        const idUnico = crypto.randomUUID();
+        return idUnico;
+    }
+
+    //LA CLASE TAREA SERÁ LA PLANTILLA PARA TODAS NUESTRAS TAREAS
+    class Tarea {
+        constructor(nombre) {
+            this.id = generarId();
+            this.nombre = nombre;
+        }
+
+        //MÉTODO DE INSTANCIA
+        agregar() {
+            listaTareas.push(this);
+        }
+
+        eliminar() {
+            let indiceTarea = listaTareas.findIndex(tarea => tarea.id == this.id);
+
+            if (indiceTarea == -1) {
+                return false;
+            }
+
+            listaTareas.splice(indiceTarea, 1);
+
+            return true;
+        }
+
+
+        //MÉTODOS ESTÁTICOS
+
+        static buscarPorId(id) {
+            return listaTareas.find(tarea => tarea.id == id);
+        }
+
+    }
+
+
+    const listaTareasDom = document.getElementById("lista-tareas-dom");
+
+    const inputTarea = document.getElementById("input-tarea");
+
+    const btnAgregarTarea = document.getElementById("btn-agregar-tarea");
+
+
+
+    const mostrarTareas = (lista = []) => {
+
+        listaTareasDom.innerHTML = "";
+        if (lista.length > 0) {
+
+            for (const elemento of lista) {
+
+                const li = document.createElement("li");
+                li.innerHTML = `<span class="me-2">${elemento.nombre}</span>`
+
+                //CREAR UN BOTÓN CON UN ICONO DE BASURERO PARA ELIMINAR ELEMENTO
+                const btnEliminar = document.createElement("i");
+                btnEliminar.classList.add("bi", "bi-trash-fill", "btn-eliminar", "btn", "btn-danger");
+
+                //AGREGAR DATA CON ID DE CADA ELEMENTO
+                //USAMOS DATASET PERSONALIZADOS PARA CREAR ATRIBUTOS
+                btnEliminar.dataset.idTarea = elemento.id;
+                btnEliminar.dataset.nombre = elemento.nombre;
+
+
+                //AGREGAR EL BOTÓN COMO HIJO DEL LI
+                li.append(btnEliminar);
+
+
+
+                listaTareasDom.append(li);
+            }
+        }
+    }
+
+
+    //EVENTO CLICK AL BOTÓN AGREGAR TAREA
+    btnAgregarTarea.addEventListener("click", () => {
+
+        let nombreTarea = inputTarea.value;
+
+        //VÁLIDAMOS QUE EL USUARIO INGRESÉ ALGO EN EL INPUT
+        if (!nombreTarea) {
+            return alert("Debe ingresar un nombre válido");
+        }
+
+        //CREAR INSTANCIA DE TAREA
+        let nuevaTarea = new Tarea(nombreTarea);
+
+        //GUARDAR EN EL ARRAY DE TAREAS
+        nuevaTarea.agregar();
+
+        //LIMPIAR EL INPUT DEL NOMBRE DE TAREA
+        inputTarea.value = "";
+
+        //AL CREAR UNA NUEVA TAREA VOLVEMOS A REFRESCAR LA LISTA INVOCANDO LA FUNCIÓN
+        mostrarTareas(listaTareas);
+
+        inputTarea.focus();
+    });
+
+
+
+    //DELEGACIÓN DE ELEMENTOS PARA BOTÓN ELIMINAR TAREA
+
+    listaTareasDom.addEventListener("click", (event) => {
+
+        const elemento = event.target;
+
+        if (elemento.className.includes("btn-eliminar")) {
+            let id = elemento.dataset.idTarea;
+
+            let mensaje = "Estás seguro de eliminar la tarea:\n" +
+                `ID: ${elemento.dataset.idTarea}.\n` +
+                `NOMBRE: ${elemento.dataset.nombre}.`;
+
+            let confirmacion = confirm(mensaje);
+
+
+            //SI USUARIO CONFIRMA LA ELIMINACIÓN DE LA TAREA, SE EJECUTA LO SIGUIENTE
+            if (confirmacion) {
+
+                const tarea = Tarea.buscarPorId(id);
+
+                //SI NO ENCUENTRA UNA TAREA EN EL ARRAY, MOSTRAR UN ALERT
+                if (!tarea) {
+                    return alert("No existe una tarea con el id: " + id);
+                }
+
+                //EN CASO DE QUE EXITA TAREA INTENTAMOS ELIMINARLA
+
+                if (tarea.eliminar()) {
+                    alert("Tarea Eliminada correctamente.");
+                    mostrarTareas(listaTareas);
+                } else {
+                    alert("No existe la tarea en la base de datos.");
+                }
+
+            }
+        };
+    });
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>

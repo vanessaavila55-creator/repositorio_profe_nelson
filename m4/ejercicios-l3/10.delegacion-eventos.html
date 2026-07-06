@@ -1,0 +1,31 @@
+<section id="seccion-1">
+    <h2>Contenidos...</h2>
+    <p>Elemento 1</p>
+    <p>Elemento 2</p>
+    <p>Elemento 3</p>
+    <p>Elemento 4</p>
+    <p>Elemento 5</p>
+</section>
+
+
+<style>
+    .marcado {
+        color: red;
+        text-decoration: line-through;
+    }
+</style>
+
+<script>
+
+    const seccion1 = document.getElementById("seccion-1");
+
+    seccion1.addEventListener("click", (event) => {
+
+        const { target } = event;
+
+        if (target.tagName == "P") {
+            target.classList.toggle("marcado");
+        }
+    });
+
+</script>

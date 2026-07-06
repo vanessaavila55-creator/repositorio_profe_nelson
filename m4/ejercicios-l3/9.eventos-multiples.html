@@ -1,0 +1,25 @@
+<section id="seccion-1">
+    <p>Elemento 1</p>
+    <p>Elemento 2</p>
+    <p>Elemento 3</p>
+    <p>Elemento 4</p>
+    <p>Elemento 5</p>
+</section>
+
+
+<style>
+    .marcado {
+        color:red;
+        text-decoration: line-through;
+    }
+</style>
+
+<script>
+    const parrafos = document.querySelectorAll("#seccion-1 > p");
+
+    for (const parrafo of parrafos) {
+        parrafo.addEventListener("click", () => {
+            parrafo.classList.toggle("marcado");
+        });
+    }
+</script>

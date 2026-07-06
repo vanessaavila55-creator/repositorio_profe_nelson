@@ -1,0 +1,19 @@
+<section>
+    <p class="destacado">Elemento 1</p>
+    <p>Elemento 2</p>
+    <p class="destacado">Elemento 3</p>
+    <p>Elemento 4</p>
+    <p class="destacado">Elemento 5</p>
+</section>
+
+
+<script>
+
+    const destacados = document.getElementsByClassName("destacado");
+
+    for (const elemento of destacados) {
+        
+        elemento.style.color = "red";
+        elemento.style.backgroundColor = "grey";
+    }
+</script>

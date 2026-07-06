@@ -1,0 +1,35 @@
+<ul id="lista-materiales">
+</ul>
+
+<script>
+    const materiales = [
+        { id: 1, nombre: "Martillo", precio: 5500, estado: true },
+        { id: 2, nombre: "Sierra", precio: 6000, estado: false },
+        { id: 3, nombre: "Alicate", precio: 3500, estado: true },
+    ];
+
+    const listaMateriales = document.getElementById("lista-materiales");
+
+    const cargarLista = (lista = []) => {
+        if (lista.length > 0) {
+
+            for (const elemento of materiales) {
+                let { nombre, precio, estado } = elemento;
+
+                const li = document.createElement("li");
+                li.innerText = `Nombre: ${nombre} - Precio: ${precio}`;
+
+                if (estado) {
+                    li.style.color = "green";
+                } else {
+                    li.style.color = "red";
+                }
+
+                listaMateriales.append(li);
+            }
+        }
+    };
+
+    cargarLista(materiales);
+
+</script>

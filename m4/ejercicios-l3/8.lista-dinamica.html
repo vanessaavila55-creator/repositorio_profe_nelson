@@ -1,0 +1,24 @@
+<ul id="lista-materiales">
+</ul>
+
+<script>
+    const materiales = ["Martillo", "Sierra", "Escalera", "Pulidora"];
+
+
+    const cargarLista = (lista = []) =>{
+        if(lista.length > 0){
+
+            let elementosLista = "";
+            for (const elemento of lista) {
+                elementosLista += `<li>${elemento}</li>`;
+            };
+
+            const listaMateriales = document.getElementById("lista-materiales");
+
+            listaMateriales.innerHTML= elementosLista;
+        }
+    };
+
+    cargarLista(materiales);
+
+</script>
