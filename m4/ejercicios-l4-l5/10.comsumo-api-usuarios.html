@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo API Usuarios</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <style>
+        .card .card-img-top {
+            aspect-ratio: 1/1;
+        }
+
+        .card-body {
+            height: 140px;
+        }
+
+        .placeholder-glow {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap:8px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="py-3">
+        <h1 class="text-center">Consulta usuarios aleatorios.</h1>
+    </header>
+
+    <main class="container">
+        <section class="py-3">
+            <h2 class="text-center">Datos de usuario</h2>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-5 col-lg-4">
+                    <div class="card">
+                        <div class="card-img-top placeholder" id="placeholder-imagen"></div>
+                        <img class="card-img-top placeholder d-none" alt="..." id="usuario-imagen">
+
+                        <div class="card-body text-center d-none" id="body-usuario">
+                            <h5 class="card-title" id="usuario-nombre">Nombre usuario</h5>
+                            <p class="card-text" id="usuario-email">Email: </p>
+                            <p class="card-text" id="usuario-telefono">Teléfono: </p>
+                        </div>
+
+                        <div class="card-body placeholder-glow" id="body-placeholder-usuario">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-7"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center py-2">
+                <button id="btn-cambiar-usuario" class="btn btn-primary">Cambiar usuario</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+
+        const getData = async () => {
+            try {
+                let url = "https://randomuser.me/api/";
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                const usuario = data.results[0];
+
+                return usuario;
+
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+
+        const preCargaUsuario = () => {
+            document.getElementById("placeholder-imagen").classList.remove("d-none");
+            document.getElementById("usuario-imagen").classList.add("d-none");
+            document.getElementById("usuario-nombre").innerText;
+            document.getElementById("usuario-email").innerText;
+            document.getElementById("usuario-telefono").innerText;
+
+
+            //MOSTRAR body-placeholder-usuario
+
+            document.getElementById("body-placeholder-usuario").classList.remove("d-none");
+            document.getElementById("body-usuario").classList.add("d-none");
+        }
+
+
+        const mostrarUsuario = (usuario) => {
+
+            let nombre = usuario.name.first;
+            let apellido = usuario.name.last;
+            let email = usuario.email;
+            let imagen = usuario.picture.large;
+            let telefono = usuario.cell;
+
+            let nombreCompleto = `${nombre} ${apellido}`;
+
+            document.getElementById("usuario-nombre").innerText = nombreCompleto;
+            document.getElementById("usuario-email").innerText = email;
+            document.getElementById("usuario-telefono").innerText = telefono;
+
+            const imagenEl = document.getElementById("usuario-imagen");
+            imagenEl.setAttribute("src", imagen);
+            imagenEl.setAttribute("alt", nombreCompleto);
+
+            document.getElementById("placeholder-imagen").classList.add("d-none");
+            imagenEl.classList.remove("d-none");
+
+            document.getElementById("body-placeholder-usuario").classList.add("d-none");
+            document.getElementById("body-usuario").classList.remove("d-none");
+
+        };
+
+        //EVENTO BOTÓN CAMBIAR PERSONA
+
+        const btnCambiarUsuario = document.getElementById("btn-cambiar-usuario");
+
+        btnCambiarUsuario.addEventListener("click", async () => {
+
+            try {
+                preCargaUsuario();
+                const usuario = await getData();
+                mostrarUsuario(usuario);
+
+            } catch (error) {
+                console.log(error);
+            }
+
+        });
+
+    </script>
+</body>
+
+</html>
