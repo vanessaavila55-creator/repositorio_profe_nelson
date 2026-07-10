@@ -1,0 +1,14 @@
+[
+    {
+        "id": "5f6bd440-ca72-4c61-8d13-571e872a60eb",
+        "descripcion": "Tarea 1 Seeds",
+        "estado": true,
+        "fechaCreacion": "10/07/2026"
+    },
+    {
+        "id": "1d5120c5-ccf6-40d8-afd8-1cfd2e868761",
+        "descripcion": "Tarea 2 Seeds",
+        "estado": true,
+        "fechaCreacion": "10/07/2026"
+    }
+]

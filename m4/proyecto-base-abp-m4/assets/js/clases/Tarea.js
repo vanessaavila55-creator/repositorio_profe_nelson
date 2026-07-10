@@ -9,3 +9,5 @@ class Tarea {
 
 
 export default Tarea;
+
+console.log(crypto.randomUUID());

@@ -40,13 +40,18 @@
                     <button type="submit" class="btn btn-primary">Agregar Tarea</button>
                 </div>
             </form>
+            <p>
+                Tareas totales: <span id="stat-totales"></span> | 
+                Tareas finalizadas: <span id="stat-finalizadas"></span>|
+                Tareas pendientes:  <span id="stat-pendientes"></span>
+            </p>
         </section>
 
         <section class="py-3">
             <h2 class="text-center">Listado de taras</h2>
 
             <div class="py-3">
-                <table class="table" id="tabla-tareas">
+                <table class="table d-none" id="tabla-tareas">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -60,6 +65,9 @@
                         <!-- AQUÍ SE AGREGAN LAS TAREAS DE FORMA DINÁMICA -->
                     </tbody>
                 </table>
+                <div class="alert alert-primary" role="alert" id="alert-sin-tareas">
+                    No hay tareas por mostrar...
+                </div>
             </div>
         </section>
 
